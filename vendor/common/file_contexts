@@ -467,6 +467,8 @@
 /sys/devices/virtual/bdi/[0-9]+:[0-9]+/read_ahead_kb u:object_r:sysfs_mmc_host:s0
 /sys/devices/virtual/block/dm-[0-9]+/queue/read_ahead_kb u:object_r:sysfs_mmc_host:s0
 
+/sys/devices(/platform)?/soc/[a-z0-9]+.qcom,jpeg/video4linux/video[0-33]/name(/.*)?   u:object_r:sysfs_jpeg:s0
+
 /sys/module/cpu_boost(/.*)?                                         u:object_r:sysfs_cpu_boost:s0
 /sys/module/msm_performance(/.*)?                                   u:object_r:sysfs_msm_perf:s0
 /sys/kernel/mm/ksm(/.*)?                                            u:object_r:sysfs_memory:s0

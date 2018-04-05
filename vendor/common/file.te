@@ -301,3 +301,5 @@ type data_tzstorage_file, file_type, data_file_type;
 
 #TLOC Files
 type tlocd_data_file, file_type, data_file_type;
+
+type sysfs_jpeg, fs_type, sysfs_type;
