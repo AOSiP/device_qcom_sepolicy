@@ -43,12 +43,12 @@ allow vendor_init file_contexts_file:file r_file_perms;
 
 allow vendor_init {
     bluetooth_data_file
-    camera_data_file
+    vendor_camera_data_file
     dhcp_data_file
     media_rw_data_file
     system_data_file
     tombstone_data_file
-    wifi_data_file
+    vendor_tui_data_file
 }:dir create_dir_perms;
 
 allow vendor_init self:capability sys_module;
@@ -57,3 +57,11 @@ allow vendor_init kernel:key search;
 allow vendor_init vendor_file:system module_load;
 allow vendor_init kernel:key search;
 allow vendor_init kernel:system module_request;
+userdebug_or_eng(`
+  allow vendor_init misc_block_device:blk_file w_file_perms;
+')
+get_prop(vendor_init, vendor_boot_mode_prop)
+get_prop(vendor_init, vendor_mmi_prop)
+
+#Access persist.sys.usb.config
+set_prop(vendor_init, system_prop)

@@ -1,4 +1,4 @@
-# Copyright (c) 2017, The Linux Foundation. All rights reserved.
+# Copyright (c) 2018, The Linux Foundation. All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -25,40 +25,39 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+type perfdump_app, domain;
+app_domain(perfdump_app)
 
-# Allow hal_audio to read soundcard state under /proc/asound
-allow hal_audio proc_audiod:file r_file_perms;
+allow perfdump_app system_app_data_file:dir create_dir_perms;
+allow perfdump_app system_app_data_file:file create_file_perms;
 
-allow hal_audio_default vendor_audio_data_file:dir rw_dir_perms;
-allow hal_audio_default vendor_audio_data_file:file create_file_perms;
-
-# Allow hal_audio_default to read sysfs_thermal dir/files for speaker protection
-r_dir_file(hal_audio_default, sysfs_thermal)
-
-#Allow hal audio to use Binder IPC
-vndbinder_use(hal_audio)
+# systrace support
+allow perfdump_app debugfs_tracing:dir r_dir_perms;
+allow perfdump_app debugfs_tracing:file rw_file_perms;
 
 userdebug_or_eng(`
-  diag_use(hal_audio)
-  #Allow access to debug fs
-  allow hal_audio_default debugfs:dir r_dir_perms;
-  allow hal_audio_default qti_debugfs:dir r_dir_perms;
-  allow hal_audio_default qti_debugfs:file rw_file_perms;
+  allow perfdump_app debugfs_tracing_debug:dir r_dir_perms;
+  allow perfdump_app debugfs_tracing_debug:file rw_file_perms;
 ')
 
-#Allow access to firmware
-allow hal_audio firmware_file:dir r_dir_perms;
-allow hal_audio firmware_file:file r_file_perms;
-#Split A2dp specific
-binder_call(hal_audio,bluetooth)
+allow perfdump_app debugfs_trace_marker:file getattr;
 
-#to read bt props
-get_prop(hal_audio, vendor_bluetooth_prop)
+# perfdump sets debug.atrace.* properties
+set_prop(perfdump_app, debug_prop)
 
-#for perf hal call
-hal_client_domain(hal_audio_default, hal_perf)
-hal_client_domain(hal_audio_default, hal_power)
+# pokes binder-enabled processes
+binder_use(perfdump_app)
+allow perfdump_app servicemanager:service_manager list;
+allow perfdump_app hwservicemanager:hwservice_manager list;
+allow perfdump_app app_api_service:service_manager find;
+allow perfdump_app surfaceflinger_service:service_manager find;
+allow perfdump_app audioserver_service:service_manager find;
+allow perfdump_app mediaserver_service:service_manager find;
+binder_call(perfdump_app, system_server)
 
-#allow acess to wcd_cpe
-allow hal_audio sysfs_audio:file rw_file_perms;
-allow hal_audio sysfs_audio:dir r_dir_perms ;
+# dumpstate
+set_prop(perfdump_app, ctl_dumpstate_prop)
+unix_socket_connect(perfdump_app, dumpstate, dumpstate)
+
+dontaudit perfdump_app service_manager_type:service_manager *;
+dontaudit perfdump_app hwservice_manager_type:hwservice_manager *;
