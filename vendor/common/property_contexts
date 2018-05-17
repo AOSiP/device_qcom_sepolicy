@@ -51,7 +51,7 @@ ctl.vm_bms                 u:object_r:vm_bms_prop:s0
 ro.vendor.qualcomm.bluetooth.        u:object_r:vendor_bluetooth_prop:s0
 ctl.vendor.ipacm           u:object_r:vendor_ipacm_prop:s0
 ctl.vendor.ipacm-diag      u:object_r:vendor_ipacm-diag_prop:s0
-ctl.vendor.qti                    u:object_r:vendor_qti_prop:s0
+ctl.vendor.dataqti         u:object_r:vendor_dataqti_prop:s0
 ctl.vendor.sensors                u:object_r:sensors_prop:s0
 ctl.vendor.msm_irqbalance         u:object_r:msm_irqbalance_prop:s0
 ctl.vendor.msm_irqbl_sdm630       u:object_r:msm_irqbl_sdm630_prop:s0
@@ -77,9 +77,8 @@ netd.fstman.               u:object_r:netd_prop:s0
 location.                  u:object_r:location_prop:s0
 vendor.qti.izat.           u:object_r:location_prop:s0
 persist.rmnet.mux          u:object_r:rmnet_mux_prop:s0
-sys.usb.controller         u:object_r:sys_usb_controller_prop:s0
-sys.usb.configfs           u:object_r:sys_usb_configfs_prop:s0
-sys.usb.tethering          u:object_r:sys_usb_tethering_prop:s0
+vendor.usb.                u:object_r:vendor_usb_prop:s0
+persist.vendor.usb.        u:object_r:vendor_usb_prop:s0
 qemu.hw.mainkeys           u:object_r:qemu_hw_mainkeys_prop:s0
 ro.vendor.dbg.coresight.cfg_file     u:object_r:vendor_coresight_prop:s0
 ctl.hbtp                   u:object_r:ctl_hbtp_prop:s0
@@ -87,7 +86,7 @@ vendor.audio.              u:object_r:debug_prop:s0
 vendor.voice.              u:object_r:debug_prop:s0
 persist.vendor.audio.      u:object_r:debug_prop:s0
 ro.vendor.audio.           u:object_r:debug_prop:s0
-ro.alarm_boot                 u:object_r:alarm_boot_prop:s0
+ro.vendor.alarm_boot       u:object_r:vendor_alarm_boot_prop:s0
 debug.sf.nobootanimation   u:object_r:boot_animation_prop:s0
 persist.vendor.net.doxlat  u:object_r:vendor_xlat_prop:s0
 debug.gralloc.             u:object_r:debug_gralloc_prop:s0
@@ -151,3 +150,9 @@ persist.vendor.radio       u:object_r:vendor_radio_prop:s0
 vendor.radio               u:object_r:vendor_radio_prop:s0
 ro.vendor.ril.             u:object_r:vendor_radio_prop:s0
 persist.vendor.sys.        u:object_r:vendor_system_prop:s0
+
+#ss-restart
+persist.vendor.ssr.    u:object_r:vendor_ssr_prop:s0
+
+#ss-services (PD)
+persist.vendor.pd_locater_debug    u:object_r:vendor_pd_locater_dbg_prop:s0

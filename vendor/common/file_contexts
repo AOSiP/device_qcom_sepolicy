@@ -297,6 +297,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@4\.0-service-qti u:object_r:hal_keymaster_qti_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper@1\.0-service-qti u:object_r:hal_gatekeeper_qti_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.nxp\.hardware\.nfc@1\.0-service     u:object_r:hal_nfc_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.nxp\.hardware\.nfc@1\.1-service     u:object_r:hal_nfc_default_exec:s0
 /(vendor|system/vendor)/bin/qdmastatsd          u:object_r:qdmastatsd_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.alarm@1\.0-service      u:object_r:hal_alarm_qti_default_exec:s0
 /(vendor|system/vendor)/bin/imsrcsd             u:object_r:hal_rcsservice_exec:s0
@@ -310,6 +311,8 @@
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.tui_comm@1\.0-service-qti u:object_r:hal_tui_comm_qti_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.qdutils_disp@1\.0-service-qti u:object_r:hal_qdutils_disp_qti_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.qti\.hardware\.sensorscalibrate@1\.0-service u:object_r:hal_sensorscalibrate_qti_default_exec:s0
+/(vendor|system/vendor)/bin/power_off_alarm        u:object_r:power_off_alarm_exec:s0
+
 ###################################
 # sysfs files
 #
@@ -516,6 +519,7 @@
 /data/vendor/qti-logkit/socket-public(/.*)?                         u:object_r:qti_logkit_pub_socket:s0
 /data/vendor/radio(/.*)?                                            u:object_r:vendor_radio_data_file:s0
 /data/vendor/modem_config(/.*)?                                     u:object_r:vendor_mbn_data_file:s0
+/data/vendor/qti(/.*)?                                              u:object_r:vendor_qti_data_file:s0
 /data/vendor/netmgr(/.*)?                                           u:object_r:netmgrd_data_file:s0
 /data/vendor/port_bridge(/.*)?                                      u:object_r:port_bridge_data_file:s0
 /data/vendor/rfs.*                                                  u:object_r:rfs_file:s0
@@ -535,6 +539,8 @@
 /data/vendor/media(/.*)?                                            u:object_r:vendor_media_data_file:s0
 /data/vendor/mediadrm(/.*)?                                         u:object_r:vendor_mediadrm_data_file:s0
 /data/vendor/ssrdump(/.*)?                                          u:object_r:ramdump_vendor_data_file:s0
+/data/vendor/ramdump(/.*)?                                          u:object_r:vendor_ramdump_data_file:s0
+/data/vendor/mdmhelperdata(/.*)?                                    u:object_r:vendor_mdmhelperdata_data_file:s0
 /sys/kernel/debug/ipc_logging(/.*)?                                 u:object_r:qti_debugfs:s0
 /data/vendor/misc/qsee(/.*)?                                        u:object_r:data_qsee_file:s0
 /data/vendor/tui(/.*)?                                              u:object_r:vendor_tui_data_file:s0
@@ -656,6 +662,8 @@
 /system/vendor/firmware(/.*)?                                       u:object_r:firmware_file:s0
 /firmware/image(/.*)?                                               u:object_r:firmware_file:s0
 /vendor/bt_firmware(/.*)?                                           u:object_r:bt_firmware_file:s0
+/vendor/firmware_mnt(/.*)?                                          u:object_r:firmware_file:s0
+
 /bt_firmware/bt_firmware(/.*)?                                      u:object_r:bt_firmware_file:s0
 
 /(vendor|system/vendor)/bin/grep                                    u:object_r:vendor_toolbox_exec:s0

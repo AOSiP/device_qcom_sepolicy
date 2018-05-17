@@ -1,5 +1,5 @@
 # Default type for anything under /firmware.
-type firmware_file, fs_type, contextmount_type;
+type firmware_file, file_type, contextmount_type, vendor_file_type;
 
 # All files under /vendor/firmware
 type vendor_firmware_file, vendor_file_type, file_type;
@@ -10,6 +10,10 @@ type qmuxd_socket, file_type;
 #Define the netmgrd socket type
 type netmgrd_socket, file_type;
 
+#QTI file types
+type vendor_qti_data_file, file_type, data_file_type;
+
+type proc_wifi_dbg, proc_type, fs_type;
 #Define the pps socket type
 type pps_socket, file_type;
 
@@ -237,6 +241,7 @@ type nfc_vendor_data_file, file_type, data_file_type;
 
 # kgsl file type for sysfs access
 type sysfs_kgsl, sysfs_type, fs_type;
+type sysfs_kgsl_proc, sysfs_type, fs_type;
 
 # secure touch files
 type sysfs_securetouch, fs_type, sysfs_type;
@@ -326,3 +331,7 @@ type ramdump_vendor_data_file, file_type, data_file_type, mlstrustedobject;
 
 # npu file
 type sysfs_npu, fs_type, sysfs_type;
+
+# subsystem_ramdump files
+type vendor_ramdump_data_file, file_type, data_file_type;
+type vendor_mdmhelperdata_data_file, file_type, data_file_type;
