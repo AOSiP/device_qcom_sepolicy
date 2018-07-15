@@ -1,4 +1,4 @@
-# Copyright (c) 2017, The Linux Foundation. All rights reserved.
+# Copyright (c) 2018, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -25,28 +25,32 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-## ssg_app
-##
-## This file defines the permissions that ssg_apps can carry
+#Define Domain
+type hal_mirrorlink_qti, domain;
+type hal_mirrorlink_qti_exec, exec_type, vendor_file_type, file_type;
+hal_server_domain(hal_mirrorlink_qti,hal_mirrorlink)
 
-type ssg_app, domain;
+#Allow for transition from init domain to hal_mirrorlink
+init_daemon_domain(hal_mirrorlink_qti)
 
-app_domain(ssg_app)
-net_domain(ssg_app)
+#Allow hal_mirrorlink to use Vendor Binder IPC
+vndbinder_use(hal_mirrorlink)
 
-# Allow access to sockets
-unix_socket_connect(ssg_app, mlid, mlid)
-unix_socket_connect(ssg_app, ssgqmig, ssgqmigd)
-unix_socket_connect(ssg_app, ssgtzd, ssgtzd)
+#Allow hwbinder call from hal client to server
+binder_call(hal_mirrorlink_client, hal_mirrorlink_server)
+binder_call(hal_mirrorlink_server, hal_mirrorlink_client)
 
-allow ssg_app radio_service:service_manager find;
-allow ssg_app surfaceflinger_service:service_manager find;
-allow ssg_app app_api_service:service_manager find;
+#Add hwservice related rules
+add_hwservice(hal_mirrorlink_server, hal_mirrorlink_hwservice)
 
-# To get uuid and device info
-allow ssg_app proc_cpuinfo:file r_file_perms;
-allow ssg_app proc_meminfo:file r_file_perms;
+#Allow access to tee device
+allow hal_mirrorlink_qti tee_device:chr_file rw_file_perms;
 
-unix_socket_connect(ssg_app,dpmtcm, dpmd);
+#Allow access to ion device
+allow hal_mirrorlink_qti ion_device:chr_file rw_file_perms;
 
-r_dir_file(ssg_app, proc)
+#Allow access to firmware
+allow hal_mirrorlink_qti firmware_file:dir r_dir_perms;
+allow hal_mirrorlink_qti firmware_file:file r_file_perms;
+
+allow hal_mirrorlink_client hal_mirrorlink_hwservice:hwservice_manager find;

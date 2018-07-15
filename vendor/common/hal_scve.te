@@ -1,4 +1,4 @@
-# Copyright (c) 2017, The Linux Foundation. All rights reserved.
+# Copyright (c) 2018, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -25,28 +25,40 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-## ssg_app
-##
-## This file defines the permissions that ssg_apps can carry
+type vendor_scve, domain;
+type vendor_scve_exec, exec_type, vendor_file_type, file_type;
 
-type ssg_app, domain;
+init_daemon_domain(vendor_scve)
 
-app_domain(ssg_app)
-net_domain(ssg_app)
+hal_server_domain(vendor_scve, hal_scve)
 
-# Allow access to sockets
-unix_socket_connect(ssg_app, mlid, mlid)
-unix_socket_connect(ssg_app, ssgqmig, ssgqmigd)
-unix_socket_connect(ssg_app, ssgtzd, ssgtzd)
+add_hwservice(hal_scve_server, hal_scve_hwservice)
 
-allow ssg_app radio_service:service_manager find;
-allow ssg_app surfaceflinger_service:service_manager find;
-allow ssg_app app_api_service:service_manager find;
+allow hal_scve_client hal_scve_hwservice:hwservice_manager find;
 
-# To get uuid and device info
-allow ssg_app proc_cpuinfo:file r_file_perms;
-allow ssg_app proc_meminfo:file r_file_perms;
+binder_call(hal_scve_client, hal_scve_server)
+binder_call(hal_scve_server, hal_scve_client)
 
-unix_socket_connect(ssg_app,dpmtcm, dpmd);
+binder_call(platform_app, hal_scve)
 
-r_dir_file(ssg_app, proc)
+r_dir_file(vendor_scve, adsprpcd_file)
+
+#  Access for ion memory
+allow vendor_scve ion_device:chr_file rw_file_perms;
+
+#  Access for DSP/QDSP device
+allow vendor_scve qdsp_device:chr_file rw_file_perms;
+allow vendor_scve dsp_device:chr_file rw_file_perms;
+
+#  Access for GPU
+allow vendor_scve gpu_device:chr_file rw_file_perms;
+
+#  Access for sdcard
+userdebug_or_eng('
+allow vendor_scve sdcard_type:dir rw_dir_perms;
+allow vendor_scve sdcard_type:file create_file_perms;
+')
+
+#  Access for /data/vendor/scve
+allow vendor_scve vendor_scve_data_file:dir create_dir_perms;
+allow vendor_scve vendor_scve_data_file:file create_file_perms;
