@@ -505,11 +505,13 @@
 /sys/module/app_setting/parameters/lib_name                         u:object_r:sysfs_lib:s0
 /sys/module/process_reclaim(/.*)?  u:object_r:sysfs_process_reclaim:s0
 /sys/module/qpnp_rtc/parameters/poweron_alarm                       u:object_r:sysfs_poweron_alarm:s0
+/sys/kernel/boot_adsp/boot                                          u:object_r:sysfs_boot_adsp:s0
 
 ###################################
 # data files
 #
 /data/connectivity(/.*)?                                            u:object_r:cnd_data_file:s0
+/data/vendor/nfc(/.*)?                                              u:object_r:nfc_vendor_data_file:s0
 /data/vendor/connectivity(/.*)?                                     u:object_r:cnd_data_file:s0
 /data/data_test(/.*)?                                               u:object_r:data_test_data_file:s0
 /data/diag_log(/.*)?                                                u:object_r:diag_data_file:s0
