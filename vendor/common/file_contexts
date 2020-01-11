@@ -321,7 +321,6 @@
 # sysfs files
 #
 /sys/class/graphics/fb0/mdp/caps                                    u:object_r:sysfs_graphics:s0
-/sys/class/kgsl(/.*)?                                               u:object_r:sysfs_kgsl:s0
 /sys/class/thermal(/.*)?                                            u:object_r:sysfs_thermal:s0
 /sys/class/sensors(/.*)?                                            u:object_r:sysfs_sensors:s0
 /sys/class/uio(/.*)?                                                u:object_r:sysfs_uio:s0
@@ -561,7 +560,7 @@
 /mnt/vendor/persist/qti_fp(/.*)?                                               u:object_r:persist_qti_fp_file:s0
 /mnt/vendor/persist/hlos_rfs(/.*)?                                             u:object_r:persist_rfs_shared_hlos_file:s0
 /mnt/vendor/persist/display(/.*)?                                              u:object_r:persist_display_file:s0
-/mnt/vendor/persist/rfs.*                                                      u:object_r:persist_rfs_file:s0
+/mnt/vendor/persist/rfs(/.*)?                                                  u:object_r:persist_rfs_file:s0
 /mnt/vendor/persist/speccfg(/.*)?                                              u:object_r:regionalization_file:s0
 /mnt/vendor/persist/misc(/.*)?                                                 u:object_r:persist_misc_file:s0
 /mnt/vendor/persist/bms(/.*)?                                                  u:object_r:persist_bms_file:s0
@@ -584,7 +583,7 @@
 /persist/qti_fp(/.*)?                                               u:object_r:persist_qti_fp_file:s0
 /persist/hlos_rfs(/.*)?                                             u:object_r:persist_rfs_shared_hlos_file:s0
 /persist/display(/.*)?                                              u:object_r:persist_display_file:s0
-/persist/rfs.*                                                      u:object_r:persist_rfs_file:s0
+/persist/rfs(/.*)?                                                  u:object_r:persist_rfs_file:s0
 /persist/speccfg(/.*)?                                              u:object_r:regionalization_file:s0
 /persist/misc(/.*)?                                                 u:object_r:persist_misc_file:s0
 /persist/bms(/.*)?                                                  u:object_r:persist_bms_file:s0
